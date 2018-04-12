@@ -10,21 +10,29 @@ const conn = require('../lib/conn')
 router.get('/', function(req, res, next) {
   const sql = `
 	SELECT
-		title
+		*
 	FROM
 		categories
   `
-
-  // conn.connect()
-  conn.query(sql, (err, results, fields) => {
-  	console.log(results)
-  	let data = {
-  		title: 'Home',
-  		categories: results
+	let data = {
+  		title: 'Home'
   	}
-  	res.render('home', data)
+
+  conn.query(sql, (err, results, fields) => {
+  	data.categories = results.filter(result => result.parent_id === null)
+  	data.categories.map(cat => {
+  		let subcat = results.filter(result => {
+  			if(result.parent_id === cat.id){
+  				return result
+  			}
+  		})
+  		cat.subcat = subcat
+  	})
+  	// res.render('home', data)
+  	res.json(data)
   })
-  // conn.end()
+   
+  
 
   // res.render('home')
 });
