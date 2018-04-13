@@ -31,36 +31,36 @@ router.get('/', function(req, res, next) {
   	res.render('home', data)
   	// res.json(data)
   })
-   
-  
-
   // res.render('home')
 })
 
-router.get('/:category', function(req, res, next) {
-	// console.log(req)
-	const sql = `
+// GET CATEGORY PAGE
+router.get('/categories/:category', function(req, res, next) {
+	let cat = req.params.category
+	let sql = `
 	SELECT
-		*
+		categories.title,
+		categories.slug,
+		listings.description,
+		listings.title
 	FROM
-		listings
+		categories
+	LEFT JOIN
+		listings ON categories.id = listings.category_id
+	where categories.title LIKE '%${cat}%'
 	`
-	let data = {
-		title: 'Category',
-		category: req.params.category
+	var data = {
+		description: [],
+		title:[]
 	}
 	conn.query(sql, (err, results, fields) => {
-  	data.categories = results.filter(result => result.parent_id === null)
-  	data.categories.map(cat => {
-  		let subcat = results.filter(result => {
-  			if(result.parent_id === cat.id){
-  				return result
-  			}
-  		})
-  		cat.subcat = subcat
-  	})
-})
-	res.render('category', data)
+		results.map(result => {
+			data.description.push(result.description)
+			data.title.push(result.title)
+		})
+		res.render('category', data)
+	})
+	
 })
 
 module.exports = router

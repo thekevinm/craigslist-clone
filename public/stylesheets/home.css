@@ -2,7 +2,9 @@
 	border-bottom:2px solid grey;
 	display: flex;
 	color: rgb(238, 109, 96);
-	justify-content: center;
+	justify-content: space-between;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 .homeCategories {

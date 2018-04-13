@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{{title}}</title>
+	<title>Categories</title>
 	<link rel="stylesheet" href="/stylesheets/category.css" />
 </head>
 <body>
-	<h1>{{category}}</h1>
-	<img src="{{picture}}" />
-	<h1>{{description}}</h1>
+
+<header class="homeHeader"> 
+	<h1>Listings</h1>
+</header>
+
+	{{#title}}
+	<h1>{{.}}</h1>
+	{{/title}}
+
+
 </body>
 </html>
