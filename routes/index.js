@@ -4,8 +4,6 @@ var multer = require('multer')
 const conn = require('../lib/conn')
 
 
-// const upload = multer({})
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const sql = `
@@ -59,8 +57,11 @@ router.get('/categories/:category', function(req, res, next) {
 			data.title.push(result.title)
 		})
 		res.render('category', data)
-	})
-	
+	})	
 })
+
+// INPUT STUFF
+// router.post()
+
 
 module.exports = router
