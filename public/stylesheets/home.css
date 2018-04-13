@@ -2,6 +2,7 @@
 	border-bottom:2px solid grey;
 	display: flex;
 	color: rgb(238, 109, 96);
+	justify-content: center;
 }
 
 .homeCategories {
@@ -37,6 +38,14 @@
 	justify-content: center;
 	margin-top: 600px;
 	height: 50px; 
+	align-items: center;
+}
+
+.design {
+	color: rgb(238, 109, 96);
+/*	border-bottom: 2px solid grey;*/
+	display: flex;
+	justify-content: center;
 	align-items: center;
 }
 
