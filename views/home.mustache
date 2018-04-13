@@ -8,6 +8,11 @@
 	<h1>Ryan's List</h1>
 	{{#categories}}
 	<h3>{{title}}</h3>
+	<ul>
+	{{#subcat}}
+		<li>{{title}}</li>
+	{{/subcat}}
+	</ul>	
 	{{/categories}}
 </body>
 </html>

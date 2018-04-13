@@ -28,8 +28,8 @@ router.get('/', function(req, res, next) {
   		})
   		cat.subcat = subcat
   	})
-  	// res.render('home', data)
-  	res.json(data)
+  	res.render('home', data)
+  	// res.json(data)
   })
    
   
