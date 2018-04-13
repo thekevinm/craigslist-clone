@@ -14,16 +14,20 @@
 {{#categories}}
 <div class="homeCategories">	
 	<div class="homeTitle">
-	<h2>{{title}}</h2>
+		<h2 class="h2top"><a href="{{slug}}">{{title}}</a></h2>
 	</div>
 
 	<div class="subContainer">
 	{{#subcat}}
-		<p>{{title}}</p>
+		<p><a href="{{slug}}">{{title}}</a></p>
 	{{/subcat}}
 	</div>	
 </div>
 {{/categories}}
+
+	<footer class="homeFooter">
+		<h1 class="bottom">Ryan's List &copy;</h1>
+	</footer>
 
 </body>
 </html>
