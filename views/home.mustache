@@ -3,16 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{title}}</title>
+	<link rel="stylesheet" href="/stylesheets/home.css" /> 
 </head>
 <body>
-	<h1>Ryan's List</h1>
-	{{#categories}}
-	<h3>{{title}}</h3>
-	<ul>
+
+	<header class="homeHeader">
+		<h1>Ryan's List &copy;</h1>
+	</header>
+
+{{#categories}}
+<div class="homeCategories">	
+	<div class="homeTitle">
+	<h2>{{title}}</h2>
+	</div>
+
+	<div class="subContainer">
 	{{#subcat}}
-		<li>{{title}}</li>
+		<p>{{title}}</p>
 	{{/subcat}}
-	</ul>	
-	{{/categories}}
+	</div>	
+</div>
+{{/categories}}
+
 </body>
 </html>
