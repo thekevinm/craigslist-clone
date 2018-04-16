@@ -2,6 +2,12 @@ var express = require('express')
 var router = express.Router()
 var multer = require('multer')
 const conn = require('../lib/conn')
+var multer = require('multer')
+
+var upload = multer({
+	dest: path.join(__dirname, '../public/images'),
+	limits: {fileSize: 1000000, files: 1}
+})
 
 
 /* GET home page. */
@@ -77,15 +83,16 @@ router.get('/post', (req, res, next) => {
   })
 })
 
-router.post('/post', (req, res, next) => {
+router.post('/post', upload.single('picture'), (req, res, next) => {
     const description = req.body.desc
-    // const category_id = req.
-    const image_filename = req.file.filename
+    const title = req.body.title
+    const image_filename = '/images/' + req.file.filename
+    // const category = req.body.
   
     const sql = `
-      INSERT INTO listings (description, category_id, image_filename) 
+      INSERT INTO listings (description, title, image_path) 
       VALUES (?, ?, ?)`
-    conn.query(sql, [description, category_id, image_filename], (err, results, fields) => {
+    conn.query(sql, [description, title, image_filename], (err, results, fields) => {
       res.redirect('/')
     })
 })
