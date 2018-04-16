@@ -61,7 +61,34 @@ router.get('/categories/:category', function(req, res, next) {
 })
 
 // INPUT STUFF
-// router.post()
+router.get('/post', (req, res, next) => {
+  let sql = `
+    SELECT *
+    FROM categories
+    WHERE parent_id > 0
+  `
+  let data = {
+    categories: []
+  }
+  conn.query(sql, (err, results, fields) => {
+    // console.log(results)
+    data.categories = results
+    res.render('post', data)
+  })
+})
+
+router.post('/post', (req, res, next) => {
+    const description = req.body.desc
+    // const category_id = req.
+    const image_filename = req.file.filename
+  
+    const sql = `
+      INSERT INTO listings (description, category_id, image_filename) 
+      VALUES (?, ?, ?)`
+    conn.query(sql, [description, category_id, image_filename], (err, results, fields) => {
+      res.redirect('/')
+    })
+})
 
 
 module.exports = router

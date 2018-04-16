@@ -3,15 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Post</title>
+	<link rel="stylesheet" href="/stylesheets/post.css" /> 
 </head>
 <body>
-	
-	<form action="/images" method="POST" enctype="multipart/form-data">
-	
-	<input type="text" placeholder="yo">
+	<header>
+		<h1>Create A Post</h1>
+	</header>
 
-	<input name="picture" type="file" name="image">
-	<input type="submit" value="Upload Image">
+	<div class="titleStuff">
+		<form action="/images" method="POST" enctype="multipart/form-data">
+			<label>
+				<input class="title" type="text" placeholder="Title">
+			</label>
+	</div>
+		
+	<div class="descStuff">
+		<textarea rows="6" cols="75" placeholder="Post Description"></textarea>
+	</div>
+	
+	<div class="imgStuff">	
+		<h3>Upload A Picture</h3>
+		<input type="file"">
+	</div>
+	
+	<div class="catStuff">
+	{{#categories}}
+	  <label>
+        <input type="radio" name="radioname" value={{title}}{{parent_id}}/>{{title}}
+      </label>
+	{{/categories}}
+	</div>
+
+	<div class="addMe">
+		<input class="complete" type="submit" value="Upload">
+	</div>
 
 	</form>
 

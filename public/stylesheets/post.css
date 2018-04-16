@@ -1,0 +1,91 @@
+header {
+	border-bottom:2px solid grey;
+	display: flex;
+	color: rgb(238, 109, 96);
+	justify-content: space-between;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+body {
+	background-color: rgb(185, 197, 199);
+}
+
+::placeholder {
+	color: rgb(238, 109, 96);
+}
+
+.titleStuff {
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+	width: 1000px;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.title {
+	height: 35px;
+	width: 300px;
+	outline: none;
+	font-size: 20px;
+	padding-left: 20px;
+	border: 1px solid rgb(238, 109, 96);
+	background-color: rgb(185, 197, 199);
+	color: rgb(238, 109, 96);
+}
+
+.descStuff {
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+	width: 1000px;
+	justify-content: center;
+	margin-top: 10px;
+} 
+
+textarea {
+	outline: none;
+	font-size: 20px;
+	padding-left: 20px;
+	border: 1px solid rgb(238, 109, 96);
+	color: rgb(238, 109, 96);
+	background-color: rgb(185, 197, 199);
+}
+
+.imgStuff {
+	display: flex;
+	color: rgb(238, 109, 96);
+	flex-wrap: wrap;
+	margin: auto;
+	width: 1000px;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.catStuff {
+	display: flex;
+	width: 750px;
+	margin: auto;
+	justify-content: space-around;
+	color: rgb(238, 109, 96);
+	flex-wrap: wrap;
+} 
+
+.addMe {
+	display: flex;
+	margin:auto;
+	justify-content: center;
+	margin-top: 25px;
+}
+
+.complete {
+	width: 100px;
+	color: rgb(238, 109, 96);
+	background-color: rgb(185, 197, 199);
+	border:1px solid rgb(238, 109, 96);
+}
+
+.complete:hover {
+	background-color: silver;
+}
