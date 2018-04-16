@@ -17,12 +17,7 @@ app.set('view engine', 'jade');
 app.set('view engine', 'mustache')
 app.set('views', __dirname + '/views')
 
-// var multer = require('multer')
 
-// var upload = multer({
-// 	dest: path.join(__dirname, '../public/images'),
-// 	limits: {fileSize: 1000000, files: 1}
-// })
 
 // app.post('/images', upload.single('picture'), (req, res, next) => {
 // 	res.redirect('/')

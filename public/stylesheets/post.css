@@ -72,6 +72,10 @@ textarea {
 	flex-wrap: wrap;
 } 
 
+select {
+	outline: none;
+}
+
 .addMe {
 	display: flex;
 	margin:auto;

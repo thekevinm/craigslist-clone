@@ -1,0 +1,49 @@
+body {
+	background-color:rgb(185, 197, 199);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+header {
+	border-bottom:2px solid grey;
+	display: flex;
+	color: rgb(238, 109, 96);
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.nav {
+	color: rgb(238, 109, 96);
+	display: flex;
+	margin:auto;
+	margin-left: 1400px;
+}
+
+.singleView {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid grey;
+	width: 500px;
+	margin:auto;
+	margin-top:25px;
+}
+
+.picStuff {
+/*	border: 1px solid red;*/
+	display: flex;
+	margin:auto;
+	margin-top:5px;
+	margin-bottom: 5px;
+}
+
+.descStuff {
+	border-top:1px solid grey;
+	display: flex;
+	flex-wrap: wrap;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: rgb(238, 109, 96);
+} 

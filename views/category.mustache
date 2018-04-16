@@ -8,13 +8,17 @@
 <body>
 
 <header class="homeHeader"> 
-	<h1>Listings</h1>
+	<h1>Listing: {{category}}</h1>
+	<div class="nav">
+		<a href="/">Back</a>
+	</div>
 </header>
-
-	{{#title}}
-	<h1>{{.}}</h1>
-	{{/title}}
-
+	
+	<div class="{{view}}">
+	{{#listings}}
+		<h1><a href="/single-listing/{{id}}"><img src="http://placehold.it/200/200"/>{{title}}</a></h1>
+	{{/listings}}
+	</div>
 
 </body>
 </html>
