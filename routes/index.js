@@ -13,7 +13,7 @@ var upload = multer({
 
 
 /* GET home page. */
-router.get('/', auth, function(req, res, next) {
+router.get('/', function(req, res, next) {
   const sql = `
 	SELECT
 		*
@@ -41,31 +41,71 @@ router.get('/', auth, function(req, res, next) {
 })
 
 // GET CATEGORY PAGE
-router.get('/categories/:category/:view?', auth, (req, res, next) =>{
-	const sql = `
-		SELECT
-			l.*
-		FROM
-			listings l
+router.get('/categories/:category/:view?', (req, res, next) =>{
+	
+	const queryid = `
+	SELECT id, title as catname
+	FROM categories
+	WHERE slug like ?
+	`
+
+	conn.query(queryid, [req.params.category], (err, results, fields) =>{
+		// console.log('category id:',results[0])
+		const catId = results[0].id
+		const catName = results[0].catname
+
+		const querylistings = `
+		SELECT l.*, i.image_path
+		FROM listings l
 		LEFT JOIN categories c
 			ON l.category_id = c.id
-		WHERE c.slug LIKE '${req.params.category}' 
-	 `
+		LEFT JOIN images i
+			ON l.id = i.listing_id
+		WHERE l.category_id = ? OR c.parent_id = ?
+		ORDER BY 
+			l.id DESC
+		`
 
-	let data = {
-		title: req.params.category, 
-		category: req.params.category,
-		view: req.params.view || 'list'
-	}
-	
-	conn.query(sql, (err, results, fields) => {
-			data.listings = results.map(result => {return {...result}})
-			// console.log('data listing: ', data.listings)
-			// console.log(results)
+		conn.query(querylistings, [catId, catId], (err2, results2, fields2) =>{
+
+			data = {
+				title: catName,
+				listings: results2.map(result => {return{...result}}),
+				slug: req.params.category,
+				view: req.params.view
+			}
+
 			res.render('category', data)
+		})
 	})
-	
+
 })
+
+// router.get('/categories/:category/:view?', auth, (req, res, next) =>{
+// 	const sql = `
+// 		SELECT
+// 			l.*
+// 		FROM
+// 			listings l
+// 		LEFT JOIN categories c
+// 			ON l.category_id = c.id
+// 		WHERE c.slug LIKE '${req.params.category}' 
+// 	 `
+
+// 	let data = {
+// 		title: req.params.category, 
+// 		category: req.params.category,
+// 		view: req.params.view || 'list'
+// 	}
+	
+// 	conn.query(sql, (err, results, fields) => {
+// 			data.listings = results.map(result => {return {...result}})
+// 			// console.log('data listing: ', data.listings)
+// 			// console.log(results)
+// 			res.render('category', data)
+// 	})
+	
+// })
 
 
 // router.get('/categories/:category', function(req, res, next) {
@@ -96,12 +136,12 @@ router.get('/categories/:category/:view?', auth, (req, res, next) =>{
 // })
 
 // GET SINGLE CATEGORY PAGE
-router.get('/single-listing/:listingid', auth, (req, res, next) =>{
+router.get('/single-listing/:listingid', (req, res, next) =>{
 	const sql = `
 	SELECT
 		l.*,
 		i.*,
-		c.title, c.slug
+		c.title as catname, c.slug
 	FROM 
 		listings l
 	LEFT JOIN images i
@@ -115,10 +155,9 @@ router.get('/single-listing/:listingid', auth, (req, res, next) =>{
 	let data = {}
 
 	conn.query(sql, (err, results, fields) =>{
-		console.log(results[0])
 		data.title = results[0].title
 		data.id = results[0].listing_id
-		data.category = results[0].title
+		data.category = results[0].catname
 		data.catid = results[0].category_id
 		data.description = results[0].description
 		data.image = results[0].image_path
@@ -128,8 +167,40 @@ router.get('/single-listing/:listingid', auth, (req, res, next) =>{
 })
 
 
+// router.get('/single-listing/:listingid', (req, res, next) =>{
+// 	const sql = `
+// 	SELECT
+// 		l.*,
+// 		i.*,
+// 		c.title, c.slug
+// 	FROM 
+// 		listings l
+// 	LEFT JOIN images i
+// 		ON l.id = i.listing_id
+// 	LEFT JOIN categories c
+// 		ON l.category_id = c.id
+// 	WHERE
+// 		l.id LIKE '${req.params.listingid}'
+// 	`
+
+// 	let data = {}
+
+// 	conn.query(sql, (err, results, fields) =>{
+// 		console.log(results[0])
+// 		data.title = results[0].title
+// 		data.id = results[0].listing_id
+// 		data.category = results[0].title
+// 		data.catid = results[0].category_id
+// 		data.description = results[0].description
+// 		data.image = results[0].image_path
+// 		data.slug = results[0].slug
+// 		res.render('single-listing', data)
+// 	})
+// })
+
+
 // INPUT STUFF
-router.get('/post', auth, (req, res, next) => {
+router.get('/post', (req, res, next) => {
   let sql = `
     SELECT *
     FROM categories
@@ -151,7 +222,7 @@ router.get('/post', auth, (req, res, next) => {
   	})
 })
 
-router.post('/add-post', auth, upload.single('listingImg'), (req, res, next) =>{
+router.post('/add-post', upload.single('listingImg'), (req, res, next) =>{
 	// console.log('request:', req.body)
 	// console.log('file', req.file)
 	const title = req.body.title

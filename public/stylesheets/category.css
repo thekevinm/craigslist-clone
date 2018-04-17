@@ -11,6 +11,16 @@ p:hover {
 	cursor: pointer;
 }
 
+h1 {
+	color: rgb(238, 109, 96);
+}
+
+img {
+	padding-left: 50px;
+	width: 100px;
+	height: 100px;
+}
+
 .viewType {
 	display: flex;
 	width: 200px;
@@ -57,4 +67,9 @@ p:hover {
 .gallery h1{
 	color:transparent;
 	padding-left: 50px;
+}
+
+.gallery img {
+	width: 300px;
+	height: 300px;
 }
