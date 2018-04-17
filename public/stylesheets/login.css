@@ -1,0 +1,69 @@
+body {
+	background-color: rgb(185, 197, 199);
+}
+
+header {
+	border-bottom:2px solid grey;
+	display: flex;
+	color: rgb(238, 109, 96);
+	justify-content: space-between;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+input {
+	outline: none;
+	border: none;
+	background: transparent;
+	color: rgb(238, 109, 96);
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	color: rgb(238, 109, 96);
+	outline: none;
+	border-radius: 5px;
+}
+
+button:hover {
+	background-color: silver;
+}
+
+.container {
+/*	border:1px solid red;*/
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+}
+
+.loginStuff {
+	color: rgb(238, 109, 96);
+	display: flex;
+/*	border: 1px solid red;*/
+	width: 700px;
+	margin: auto;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.registerStuff {
+	color: rgb(238, 109, 96);
+	display: flex;
+/*	border: 1px solid red;*/
+	width: 700px;
+	margin: auto;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+fieldset {
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.error {
+	color:red;
+}

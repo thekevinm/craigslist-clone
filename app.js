@@ -3,6 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mustacheExpress = require('mustache-express');
+// var auth = require('./middlewares/auth')
+var config = require('./config/default.json')
+var session = require('express-session')
+var authRoutes = require('./routes/auth')
 
 
 var indexRouter = require('./routes/index');
@@ -32,6 +36,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+	secret: config.session.secret,
+	resave: true,
+	saveUninitialized: false
+}))
+
+
+
+// app.use((req, res, next) => {
+// 	if (req.session.authenticated) {
+// 		next()
+// 	} else {
+// 		res.redirect('/login')
+// 	}
+// })
+
+app.use(authRoutes)
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);

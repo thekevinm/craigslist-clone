@@ -4,6 +4,7 @@ var multer = require('multer')
 const conn = require('../lib/conn')
 var multer = require('multer')
 const path = require('path')
+const auth = require('../middlewares/auth')
 
 var upload = multer({
 	dest: path.join(__dirname, '../public/images'),
@@ -12,7 +13,7 @@ var upload = multer({
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', auth, function(req, res, next) {
   const sql = `
 	SELECT
 		*
@@ -40,7 +41,7 @@ router.get('/', function(req, res, next) {
 })
 
 // GET CATEGORY PAGE
-router.get('/categories/:category/:view?', (req, res, next) =>{
+router.get('/categories/:category/:view?', auth, (req, res, next) =>{
 	const sql = `
 		SELECT
 			l.*
@@ -95,7 +96,7 @@ router.get('/categories/:category/:view?', (req, res, next) =>{
 // })
 
 // GET SINGLE CATEGORY PAGE
-router.get('/single-listing/:listingid', (req, res, next) =>{
+router.get('/single-listing/:listingid', auth, (req, res, next) =>{
 	const sql = `
 	SELECT
 		l.*,
@@ -128,7 +129,7 @@ router.get('/single-listing/:listingid', (req, res, next) =>{
 
 
 // INPUT STUFF
-router.get('/post', (req, res, next) => {
+router.get('/post', auth, (req, res, next) => {
   let sql = `
     SELECT *
     FROM categories
@@ -150,7 +151,7 @@ router.get('/post', (req, res, next) => {
   	})
 })
 
-router.post('/add-post', upload.single('listingImg'), (req, res, next) =>{
+router.post('/add-post', auth, upload.single('listingImg'), (req, res, next) =>{
 	// console.log('request:', req.body)
 	// console.log('file', req.file)
 	const title = req.body.title
