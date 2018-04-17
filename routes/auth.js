@@ -22,15 +22,15 @@ router.post('/login', (req, res, next) => {
 
 	const sql = 'SELECT count(1) as count FROM users WHERE username = ? AND password = ?'
 
-	conn.query(sql, [req.body.username, sha1(req.body.password)]), (err, results, fields) => {
-		console.log('here')
+	conn.query(sql, [req.body.username, sha1(req.body.password)], (err, results, fields) => {
+		
 		if (results[0].count > 0) {
 			req.session.authenticated = true
 			res.redirect('/')
 		}else {
 			res.redirect('/login?error=true')
 		}
-	}
+	})
 })
 
 router.post('/register', (req, res, next) => {

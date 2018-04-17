@@ -55,7 +55,7 @@ app.use(session({
 
 app.use(authRoutes)
 
-app.use('/', indexRouter);
+app.use(indexRouter);
 // app.use('/users', usersRouter);
 
 // // catch 404 and forward to error handler
