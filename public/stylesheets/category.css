@@ -7,6 +7,17 @@ a {
 	text-decoration: none;
 }
 
+p:hover {
+	cursor: pointer;
+}
+
+.viewType {
+	display: flex;
+	width: 200px;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .homeHeader {
 	border-bottom:2px solid grey;
 	display: flex;
@@ -21,4 +32,29 @@ a {
 	flex-direction: column;
 	padding-left: 50px;
 	color: rgb(238, 109, 96);
+}
+
+.list img {
+	width: 100px;
+	height: 100px;
+}
+
+.thumb img{
+	width: 25px;
+	height: 25px;
+	padding-left: 50px;
+}
+
+.thumb h1{
+	color: rgb(238, 109, 96);
+}
+
+.gallery {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.gallery h1{
+	color:transparent;
+	padding-left: 50px;
 }
