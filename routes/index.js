@@ -13,7 +13,7 @@ var upload = multer({
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', auth, function(req, res, next) {
   const sql = `
 	SELECT
 		*
@@ -41,7 +41,7 @@ router.get('/', function(req, res, next) {
 })
 
 // GET CATEGORY PAGE
-router.get('/categories/:category/:view?', (req, res, next) =>{
+router.get('/categories/:category/:view?', auth, (req, res, next) =>{
 	
 	const queryid = `
 	SELECT id, title as catname
@@ -136,7 +136,7 @@ router.get('/categories/:category/:view?', (req, res, next) =>{
 // })
 
 // GET SINGLE CATEGORY PAGE
-router.get('/single-listing/:listingid', (req, res, next) =>{
+router.get('/single-listing/:listingid', auth, (req, res, next) =>{
 	const sql = `
 	SELECT
 		l.*,
@@ -200,7 +200,7 @@ router.get('/single-listing/:listingid', (req, res, next) =>{
 
 
 // INPUT STUFF
-router.get('/post', (req, res, next) => {
+router.get('/post', auth, (req, res, next) => {
   let sql = `
     SELECT *
     FROM categories
@@ -222,7 +222,7 @@ router.get('/post', (req, res, next) => {
   	})
 })
 
-router.post('/add-post', upload.single('listingImg'), (req, res, next) =>{
+router.post('/add-post', auth, upload.single('listingImg'), (req, res, next) =>{
 	// console.log('request:', req.body)
 	// console.log('file', req.file)
 	const title = req.body.title
@@ -239,6 +239,7 @@ router.post('/add-post', upload.single('listingImg'), (req, res, next) =>{
 	conn.query(sql, [title, description, category], (err, results, fields) =>{
 		let listing_id = results.insertId
 		const image_path = '/images/' + req.file.filename
+		// const posted_by = req.session.user
 		const imgSql = `
 		INSERT INTO
 			images (listing_id, image_path)
@@ -246,9 +247,6 @@ router.post('/add-post', upload.single('listingImg'), (req, res, next) =>{
 		`
 
 		conn.query(imgSql, [listing_id, image_path], (error, queryres, queryfields) =>{
-			data = {
-				title: 'test title'
-			}
 			res.redirect('/')
 		})
 	})
